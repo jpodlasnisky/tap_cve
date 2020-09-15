@@ -42,20 +42,18 @@ class LastCVE(object):
     vulnerable_configuration_cpe_2_2 = attrib()
     vulnerable_product = attrib()
     timestamp = attrib()
-#cont = 0
+
 arr_cve = []
+dict_cve = {}
 with urllib.request.urlopen(url) as json_url:
     data = json.loads(json_url.read().decode('utf-8'))    
     for obj in data:
-        arr_cve.append(LastCVE(obj['Modified'], obj['Published'], obj['access'], obj['assigner'], obj['cvss'], obj['cwe'], obj['id'], obj['impact'], obj['last-modified'],
-                        obj['references'], obj['summary'], obj['vulnerable_configuration'], obj['vulnerable_configuration_cpe_2_2'], obj['vulnerable_product'], now))
-        
-        #cont += 1
-        #print('---- objeto {}'.format(cont))
-        #print(obj)
-        #print('--------------------\n')
+        for param in obj:
+            dict_cve[param] = obj[param]
+        dict_cve['timestamp'] = now
+        arr_cve.append(dict_cve)
 
-### Não funciona abaixo
+### Agora funciona!
 new_json = json.dumps(arr_cve)
-# print(arr_cve)
+print(new_json)
 
