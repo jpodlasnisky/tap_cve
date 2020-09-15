@@ -78,6 +78,8 @@ celerybeat-schedule.*
 # Environments 
 .env 
 .venv 
+.venv_tap_cve
+venv_tap_cve/
 env/ 
 venv/ 
 ENV/ 
